@@ -1,0 +1,12 @@
+#include "Resource.h"
+
+IDI_SPACEOUT ICON "GridBlastUltimate.ico"
+IDI_SPACEOUT_SM ICON "GridBlastUltimate_sm.ico"
+
+IDW_GAMEOVER WAVE "GameOver.wav"
+IDW_SMEXPLODE WAVE "SmExplode.wav"
+IDW_LGEXPLODE WAVE "LgExplode.wav"
+IDW_MISSILE WAVE "Missile.wav"
+IDW_BMISSILE WAVE "BMissile.wav"
+IDW_JMISSILE WAVE "JMissile.wav"
+IDW_TMISSILE WAVE "TMissile.wav"

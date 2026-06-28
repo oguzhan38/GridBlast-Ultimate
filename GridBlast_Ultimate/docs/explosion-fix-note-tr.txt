@@ -1,0 +1,27 @@
+GridBlast Ultimate v25 - Patlama Sistemi Düzeltme Notu
+======================================================
+
+Bu sürümde normal bomba, C4 ve tripwire/mayın patlama davranışı ayrıştırıldı.
+
+Düzeltme nedeni:
+Önceki sistemde tripwire tetiklenince hattaki her hücre için normal Explode() fonksiyonu çağrılıyordu. Explode() ise kendi bomba menzili kadar dört yöne yayıldığı için tripwire hattı üzerinde birden fazla radyal patlama oluşabiliyordu. Bu da menzil dışında kalan duvarların kırılması veya menzil dışında kalan düşmanların ölmesi gibi hatalı davranışlara sebep olabiliyordu.
+
+Yapılan değişiklikler:
+1) Normal bomba ve C4 için Explode() korundu.
+   - Sadece merkez + dört yönde _iExplosionRange kadar ilerler.
+   - CELL_WALL görünce durur.
+   - CELL_BREAKABLE görünce sadece o hücreyi kırar ve o yönde durur.
+   - Duvar arkasına hasar geçirmez.
+
+2) Tripwire için yeni ExplodeTripwireCell() eklendi.
+   - Tripwire hattındaki her hücre sadece kendi hücresinde patlar.
+   - Normal bomba gibi dört yöne ayrıca yayılmaz.
+   - Böylece tripwire tüm haritada zincirleme menzil dışı hasar üretmez.
+
+3) Patlama yardımcı fonksiyonlara ayrıldı.
+   - AddExplosionCellSafe(): Patlama görsel hücresini güvenli ekler.
+   - ApplyExplosionDamageAtCell(): Sadece ilgili hücrede oyuncu/düşman/bonus hedef hasarı uygular.
+   - TriggerBombChainAtCell(): Sadece patlama hücresinde bomba veya C4 varsa zincirleme patlatır.
+
+Kod kontrolünde anlatılacak kısa cümle:
+"Patlama sistemini normal bomba/C4 ve tripwire olarak ayırdım. Normal bomba ve C4 menzilli artı şeklinde patlar; tripwire ise yalnızca hat üzerindeki hücrelerde tekil patlama üretir. Böylece menzil dışı duvar kırılması ve duvar arkasındaki düşmanların ölmesi engellendi."

@@ -1,0 +1,23 @@
+GridBlast Ultimate v26 düzeltme notu
+====================================
+
+1) Oyuncu hareketi:
+- Speed tuning sonrası oyuncu animasyonu tamamlanmadan yeni grid hareketi alabiliyordu.
+- Bu yüzden hareket bazen atlayarak gidiyor gibi görünüyordu.
+- HandleKeys içinde hareketten önce _iPlayerAnimTimer kontrolü eklendi.
+- Normal hareket gecikmesi 3 frame, speed power-up hareketi 2 frame yapıldı.
+- Ara geçiş animasyonu korunarak daha stabil hale getirildi.
+
+2) Normal bomba / C4 patlama menzili:
+- Normal bomba ve C4 patlamasında range güvenli şekilde 1-5 aralığına sınırlandı.
+- Patlama ray mantığı korunuyor: kırılmaz duvarda durur, kırılabilir duvarda o duvarı kırar ve arkasına geçmez.
+
+3) Tripwire / mayın kontrolü:
+- Tripwire anchor hücresi artık duvar, kırılabilir duvar, bomba veya düşman üzerinde kurulamaz.
+- İki anchor arasındaki hat üzerinde duvar, kırılabilir duvar veya bomba varsa tripwire kurulmaz.
+- Aktif tripwire sayısı MAX_TRIPWIRES sınırını aşamaz.
+- Tripwire tetiklenince hat üzerinde ilerlerken kırılmaz duvara gelirse durur.
+- Kırılabilir duvara gelirse sadece o duvarı kırar ve arkasına geçmez.
+
+Kod kontrolünde kısa anlatım:
+"Patlama sistemini üç farklı kullanım için ayırdık: normal bomba/C4 ray tabanlı menzil kullanır, tripwire ise sadece kendi çizgisi üzerinde hücreleri etkiler. Ayrıca tripwire kurulmadan önce anchor ve hat kontrolü yapıldığı için duvar içinden veya duvar arkasından hasar verme problemi engellendi."
